@@ -48,21 +48,6 @@ class ItemEntryViewModel (private val itemsRepository: ItemsRepository) : ViewMo
             )
     }
 
-    private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
-        var flag = true
-        for ((_, value) in itemUiState.isValidFiled) {
-            if (value) {
-                flag = false
-            }
-        }
-        return flag
-        /*
-        return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
-                    && suppliers_name.isNotBlank() && suppliers_email.isNotBlank() && suppliers_mobile_phone.isNotBlank()
-        }*/
-    }
-
     private fun validateFields(uiState: ItemDetails = itemUiState.itemDetails): MutableMap<String, Boolean>{
         val isValidFiled_map: MutableMap<String, Boolean> = mutableMapOf()
 
@@ -91,6 +76,21 @@ class ItemEntryViewModel (private val itemsRepository: ItemsRepository) : ViewMo
         }
 
         return isValidFiled_map
+    }
+
+    private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
+        var flag = true
+        for ((_, value) in validateFields(uiState)) {
+            if (value) {
+                flag = false
+            }
+        }
+        return flag
+        /*
+        return with(uiState) {
+            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+                    && suppliers_name.isNotBlank() && suppliers_email.isNotBlank() && suppliers_mobile_phone.isNotBlank()
+        }*/
     }
 
     suspend fun saveItem() {

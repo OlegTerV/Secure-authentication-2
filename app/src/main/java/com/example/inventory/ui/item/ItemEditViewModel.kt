@@ -54,7 +54,7 @@ class ItemEditViewModel(
 
     private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
         var flag = true
-        for ((_, value) in itemUiState.isValidFiled) {
+        for ((_, value) in validateFields(uiState)) {
             if (value) {
                 flag = false
             }
